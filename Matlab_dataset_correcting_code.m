@@ -28,6 +28,7 @@ load('1_20131107.mat')
 for j = 31:1:45
     data(j,:,1:sizes(j-30),:) = eval(sprintf(['de_LDS',num2str(j-30)]));
 end
+
 load('2_20140404.mat')
 for j = 46:1:60
     data(j,:,1:sizes(j-45),:) = eval(sprintf(['de_LDS',num2str(j-45)]));
@@ -41,7 +42,6 @@ for j = 76:1:90
     data(j,:,1:sizes(j-75),:) = eval(sprintf(['de_LDS',num2str(j-75)]));
 end
 
-
 load('3_20140603.mat')
 for j = 91:1:105
     data(j,:,1:sizes(j-90),:) = eval(sprintf(['de_LDS',num2str(j-90)]));
@@ -54,6 +54,7 @@ load('3_20140629.mat')
 for j = 121:1:135
     data(j,:,1:sizes(j-120),:) = eval(sprintf(['de_LDS',num2str(j-120)]));
 end
+
 load('4_20140621.mat')
 for j = 136:1:150
     data(j,:,1:sizes(j-135),:) = eval(sprintf(['de_LDS',num2str(j-135)]));
@@ -67,10 +68,6 @@ for j = 166:1:180
     data(j,:,1:sizes(j-165),:) = eval(sprintf(['de_LDS',num2str(j-165)]));
 end
 
-
-
-
-
 load('5_20140411.mat')
 for j = 181:1:195
     data(j,:,1:sizes(j-180),:) = eval(sprintf(['de_LDS',num2str(j-180)]));
@@ -83,6 +80,7 @@ load('5_20140506.mat')
 for j = 211:1:225
     data(j,:,1:sizes(j-210),:) = eval(sprintf(['de_LDS',num2str(j-210)]));
 end
+
 load('6_20130712.mat')
 for j = 226:1:240
     data(j,:,1:sizes(j-225),:) = eval(sprintf(['de_LDS',num2str(j-225)]));
@@ -96,7 +94,6 @@ for j = 256:1:270
     data(j,:,1:sizes(j-255),:) = eval(sprintf(['de_LDS',num2str(j-255)]));
 end
 
-
 load('7_20131027.mat')
 for j = 271:1:285
     data(j,:,1:sizes(j-270),:) = eval(sprintf(['de_LDS',num2str(j-270)]));
@@ -109,6 +106,7 @@ load('7_20131106.mat')
 for j = 301:1:315
     data(j,:,1:sizes(j-300),:) = eval(sprintf(['de_LDS',num2str(j-300)]));
 end
+
 load('8_20140511.mat')
 for j = 316:1:330
     data(j,:,1:sizes(j-315),:) = eval(sprintf(['de_LDS',num2str(j-315)]));
@@ -134,6 +132,7 @@ load('9_20140704.mat')
 for j = 391:1:405
     data(j,:,1:sizes(j-390),:) = eval(sprintf(['de_LDS',num2str(j-390)]));
 end
+
 load('10_20131130.mat')
 for j = 406:1:420
     data(j,:,1:sizes(j-405),:) = eval(sprintf(['de_LDS',num2str(j-405)]));
@@ -147,7 +146,6 @@ for j = 436:1:450
     data(j,:,1:sizes(j-435),:) = eval(sprintf(['de_LDS',num2str(j-435)]));
 end
 
-
 load('11_20140618.mat')
 for j = 451:1:465
     data(j,:,1:sizes(j-450),:) = eval(sprintf(['de_LDS',num2str(j-450)]));
@@ -160,6 +158,7 @@ load('11_20140630.mat')
 for j = 481:1:495
     data(j,:,1:sizes(j-480),:) = eval(sprintf(['de_LDS',num2str(j-480)]));
 end
+
 load('12_20131127.mat')
 for j = 496:1:510
     data(j,:,1:sizes(j-495),:) = eval(sprintf(['de_LDS',num2str(j-495)]));
@@ -173,7 +172,6 @@ for j = 526:1:540
     data(j,:,1:sizes(j-525),:) = eval(sprintf(['de_LDS',num2str(j-525)]));
 end
 
-
 load('13_20140527.mat')
 for j = 541:1:555
     data(j,:,1:sizes(j-540),:) = eval(sprintf(['de_LDS',num2str(j-540)]));
@@ -186,6 +184,7 @@ load('13_20140610.mat')
 for j = 571:1:585
     data(j,:,1:sizes(j-570),:) = eval(sprintf(['de_LDS',num2str(j-570)]));
 end
+
 load('14_20140601.mat')
 for j = 586:1:600
     data(j,:,1:sizes(j-585),:) = eval(sprintf(['de_LDS',num2str(j-585)]));
