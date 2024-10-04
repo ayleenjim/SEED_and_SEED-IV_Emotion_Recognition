@@ -1,10 +1,15 @@
 sizes = [];
 count = 0;
-for i = 1:1:15
+
+% determining the size of de_LDS matrix, for all 15 per trial
+% stores 2nd dimension in sizes 
+for i = 1:1:15 
     s = size(eval(sprintf(['de_LDS',num2str(i)])));
     sizes = [sizes s(2)];
     count = count + 1;
 end
+
+% get max size of matrices
 max_vals = max(sizes);
 data = zeros(675,62,max_vals,5);
 load('1_20131027.mat')
