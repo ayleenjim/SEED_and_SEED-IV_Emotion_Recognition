@@ -11,7 +11,11 @@ end
 
 % get max size of matrices
 max_vals = max(sizes);
+
+% zero filled matrix will specified dimensions
 data = zeros(675,62,max_vals,5);
+
+% appending to data
 load('1_20131027.mat')
 for j = 1:1:15
     data(j,:,1:sizes(j),:) = eval(sprintf(['de_LDS',num2str(j)]));
