@@ -1,40 +1,67 @@
 import numpy as np
 import mne
+from scipy.signal import welch as signal
 import scipy.io
-# preprocessing SEED_IV raw data
 
-# load raw data
-mat = scipy.io.loadmat('preprocessing/1_20160518.mat')
+# Load the downsampled data from the .mat file
+data = scipy.io.loadmat('preprocessing/downsampled_and_filtered.mat')
 
-# list all the variables/trials ('cz_eeg')
-trial_names = list(mat.keys())
+trial_names = [f'trial{i+1}' for i in range(24)]  # Modify based on actual names in the file
 
-# get rid of MATLAB metadata
-trial_names = [name for name in trial_names if not name.startswith('__')]
+# Store the downsampled trials in a list
+downsampled_data = []
 
-original_sampling_rate = 1000
-target_sampling_rate = 200
+for trial_name in trial_names:
+    # Extract each trial data from the loaded .mat file
+    trial_data = data[trial_name]
+    downsampled_data.append(trial_data)
 
-processed_trials = {}
+# Convert to a NumPy array if needed (optional)
+downsampled_data = np.array(downsampled_data)  # Shape: (24, 62, n_samples)
 
-for i, trial_name in enumerate(trial_names, start=1):
-    eeg_data = mat[trial_name]  # access data for single trial, channels x time
 
-    # needed for MNE object
-    n_channels, n_times = eeg_data.shape
-    channel_names = [f'EEG {j+1}' for j in range(n_channels)]  # list of channel names
-    channel_types = ['eeg'] * n_channels  # set channel types to 'eeg'
+# Frequency bands
+bands = {
+    'delta': (1, 4),
+    'theta': (4, 8),
+    'alpha': (8, 14),
+    'beta': (14, 31),
+    'gamma': (31, 50)
+}
 
-    info = mne.create_info(ch_names=channel_names, sfreq=original_sampling_rate, ch_types=channel_types)
-    raw = mne.io.RawArray(eeg_data, info)
+# Sampling rate after downsampling
+sfreq = 200  # Hz
 
-    raw.resample(sfreq=target_sampling_rate) # downsample to 200 Hz
-    raw.filter(l_freq=1, h_freq=75) # bandpass filter btw 1-75 Hz
+# Window size for each segment (4 seconds)
+window_size = 4 * sfreq  # 800 samples for 4 seconds
 
-    filtered_data = raw.get_data() # load filtered and downsampled data 
-    processed_trials[f'trial{i}'] = filtered_data # store filtered and downsampled data
+# Initialize an empty list to store PSD data for all trials
+psd_all_trials = []
 
-    print(f"Processed {trial_name}: {filtered_data.shape}")
+for trial_data in downsampled_data:  # Assuming 'downsampled_data' is a list of downsampled EEG trials
+    n_channels, n_samples = trial_data.shape
 
-scipy.io.savemat('preprocessing/downsampled_and_filtered.mat', processed_trials)
-print("Data saved to 'downsampled_and_filtered.mat'")
+    # Split the trial data into 4-second windows without overlap
+    n_windows = n_samples // window_size  # Number of full windows in the data
+    trial_psd = np.zeros((n_channels, n_windows, len(bands)))  # Initialize a 3D array for this trial
+    
+    for w in range(n_windows):
+        start = w * window_size
+        end = start + window_size
+        window_data = trial_data[:, start:end]
+        
+        # Compute the PSD for each channel using Welch's method
+        for ch in range(n_channels):
+            freqs, psd = signal.welch(window_data[ch, :], fs=sfreq, nperseg=window_size)
+            
+            # Extract PSD for each frequency band
+            for i, (band_name, (fmin, fmax)) in enumerate(bands.items()):
+                band_power = np.trapz(psd[(freqs >= fmin) & (freqs <= fmax)], freqs[(freqs >= fmin) & (freqs <= fmax)])
+                trial_psd[ch, w, i] = band_power
+    
+    psd_all_trials.append(trial_psd)  # Append PSD of this trial to the list
+
+# Convert the list to a numpy array
+psd_all_trials = np.array(psd_all_trials)  # Shape: (n_trials, n_channels, n_windows, n_bands)
+
+scipy.io.savemat.savemat('psd_data.mat', {'psd_all_trials': psd_all_trials})
