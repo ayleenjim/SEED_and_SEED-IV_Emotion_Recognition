@@ -1,5 +1,5 @@
-/psd_data.mat
-/ExtractedFeatures_1s
+/SEED-IV/preprocessing/psd_data.mat
 /SEED-IV/preprocessing/1_20160518.mat
-/downsampled_and_filtered.mat
+/SEED-IV/preprocessing/downsampled_and_filtered.mat
 /psd_features.mat
+/ExtractedFeatures_1s
