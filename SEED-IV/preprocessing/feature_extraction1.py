@@ -4,7 +4,7 @@ import scipy.io
 from scipy.signal import welch
 # preprocessing SEED_IV raw data
 
-mat = scipy.io.loadmat('preprocessing/1_20160518.mat') # load raw data
+mat = scipy.io.loadmat('SEED-IV/preprocessing/1_20160518.mat') # load raw data
 trial_names = list(mat.keys()) # list all the variables/trials ('cz_eeg')
 
 # get rid of MATLAB metadata
@@ -59,5 +59,5 @@ for i, trial_name in enumerate(trial_names, start=1):
     psd_trials[f'psd{i}'] = psd_3d
     print(f"Processed {trial_name}: PSD 3D shape = {psd_3d.shape}")
 
-scipy.io.savemat('preprocessing/psd_features.mat', psd_trials)
+scipy.io.savemat('SEED-IV/preprocessing/psd_features.mat', psd_trials)
 print("PSD features saved to 'psd_features.mat'")
