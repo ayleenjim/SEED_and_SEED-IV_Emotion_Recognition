@@ -4,7 +4,7 @@ import scipy.io
 # preprocessing SEED_IV raw data
 
 # load raw data
-mat = scipy.io.loadmat('preprocessing/1_20160518.mat')
+mat = scipy.io.loadmat('SEED-IV/preprocessing/1_20160518.mat')
 
 # list all the variables/trials ('cz_eeg')
 trial_names = list(mat.keys())
@@ -36,5 +36,5 @@ for i, trial_name in enumerate(trial_names, start=1):
 
     print(f"Processed {trial_name}: {filtered_data.shape}")
 
-scipy.io.savemat('preprocessing/downsampled_and_filtered.mat', processed_trials)
+scipy.io.savemat('SEED-IV/preprocessing/downsampled_and_filtered.mat', processed_trials)
 print("Data saved to 'downsampled_and_filtered.mat'")

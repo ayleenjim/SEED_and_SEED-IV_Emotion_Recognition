@@ -4,7 +4,7 @@ from scipy.signal import welch as signal
 import scipy.io
 
 # Load the downsampled data from the .mat file
-data = scipy.io.loadmat('preprocessing/downsampled_and_filtered.mat')
+data = scipy.io.loadmat('SEED-IV/preprocessing/downsampled_and_filtered.mat')
 
 trial_names = [f'trial{i+1}' for i in range(24)]  # Modify based on actual names in the file
 
